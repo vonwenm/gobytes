@@ -14,12 +14,16 @@ var (
 )
 
 func main() {
-	if len(os.Args) <= 1 {
-		fmt.Fprintln(os.Stderr, "please specify a file")
+	flag.Parse()
+
+	args := flag.Args()
+
+	if len(args) != 1 {
+		fmt.Fprintln(os.Stderr, "please specify exactly one file")
 		os.Exit(1)
 	}
 
-	bytes, e := ioutil.ReadFile(os.Args[1])
+	bytes, e := ioutil.ReadFile(args[0])
 	if e != nil {
 		fmt.Fprintln(os.Stderr, e)
 		os.Exit(1)
